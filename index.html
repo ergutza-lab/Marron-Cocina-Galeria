@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marrón Cocina Galería | Un lugar para habitar, no solo para comer</title>
+    <meta name="description" content="Restaurante, galería y diseño en Orizaba. Cocina mexicana, asador, pastas y pizza en un espacio íntimo donde el mobiliario y la decoración están a la venta.">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; background-color: #EDE5D8; color: #4A3729; scroll-behavior: smooth; }
+        h1, h2, h3, h4, .font-serif { font-family: 'Playfair Display', serif; }
+        .nav-bg { background-color: #EDE5D8; box-shadow: 0 2px 15px rgba(0,0,0,0.03); }
+        .text-terracota { color: #C27E5A; }
+        .bg-terracota { background-color: #C27E5A; }
+        .btn-terracota {
+            background-color: #C27E5A;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        .btn-terracota:hover {
+            background-color: #D48F6A;
+            transform: translateY(-2px);
+        }
+        .btn-outline-terracota {
+            border: 2px solid #C27E5A;
+            color: #C27E5A;
+            background: transparent;
+            transition: all 0.3s ease;
+        }
+        .btn-outline-terracota:hover {
+            background-color: #C27E5A;
+            color: white;
+        }
+        .imagen-click {
+            cursor: pointer;
+            transition: transform 0.4s ease;
+            border-radius: 1rem;
+        }
+        .imagen-click:hover { transform: scale(1.02); }
+        
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .lightbox.active { display: flex; }
+        .lightbox-img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 8px;
+            animation: zoomIn 0.3s ease;
+            cursor: default;
+        }
+        @keyframes zoomIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            z-index: 1001;
+        }
+        .lightbox-close:hover { color: #C27E5A; }
+        
+        .testimonio-card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid #E8DDD0;
+        }
+        .logo-header {
+            max-height: 55px;
+            width: auto;
+        }
+        .bg-marron-claro {
+            background-color: #EDE5D8;
+        }
+        .bg-marron-medio {
+            background-color: #E5D9C8;
+        }
+        .logo-footer {
+            max-height: 55px;
+            width: auto;
+        }
+    </style>
+</head>
+<body class="bg-marron-claro">
+
+    <header class="fixed top-0 w-full nav-bg z-50 py-3 border-b border-[#E8DDD0]">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div><img src="https://i.postimg.cc/bNNRWqS1/LOGO.jpg" alt="Marrón" class="logo-header"></div>
+            <nav class="hidden md:block">
+                <ul class="flex space-x-8">
+                    <li><a href="#inicio" class="text-[#4A3729] hover:text-[#C27E5A] transition text-sm uppercase tracking-wide">Inicio</a></li>
+                    <li><a href="#concepto" class="text-[#4A3729] hover:text-[#C27E5A] transition text-sm uppercase tracking-wide">Concepto</a></li>
+                    <li><a href="#experiencia" class="text-[#4A3729] hover:text-[#C27E5A] transition text-sm uppercase tracking-wide">Experiencia</a></li>
+                    <li><a href="#cocina" class="text-[#4A3729] hover:text-[#C27E5A] transition text-sm uppercase tracking-wide">Cocina</a></li>
+                    <li><a href="#galeria" class="text-[#4A3729] hover:text-[#C27E5A] transition text-sm uppercase tracking-wide">Galería</a></li>
+                    <li><a href="#menu" class="text-[#4A3729] hover:text-[#C27E5A] transition text-sm uppercase tracking-wide">Menú</a></li>
+                    <li><a href="#contacto" class="text-[#4A3729] hover:text-[#C27E5A] transition text-sm uppercase tracking-wide">Contacto</a></li>
+                </ul>
+            </nav>
+            <a href="https://wa.me/522727240139?text=Hola%2C%20me%20gustaría%20hacer%20una%20reserva%20en%20Marrón" target="_blank" class="hidden md:block btn-terracota text-white px-5 py-2 rounded-full text-sm font-semibold transition shadow-md">Reservar</a>
+            <button class="md:hidden text-[#4A3729] text-2xl" id="menuToggle"><i class="fas fa-bars"></i></button>
+        </div>
+        <div id="mobileMenu" class="hidden md:hidden bg-marron-claro border-t border-[#E8DDD0] py-4 px-4">
+            <ul class="flex flex-col space-y-3 text-center">
+                <li><a href="#inicio" class="text-[#4A3729] hover:text-[#C27E5A] block py-2">Inicio</a></li>
+                <li><a href="#concepto" class="text-[#4A3729] hover:text-[#C27E5A] block py-2">Concepto</a></li>
+                <li><a href="#experiencia" class="text-[#4A3729] hover:text-[#C27E5A] block py-2">Experiencia</a></li>
+                <li><a href="#cocina" class="text-[#4A3729] hover:text-[#C27E5A] block py-2">Cocina</a></li>
+                <li><a href="#galeria" class="text-[#4A3729] hover:text-[#C27E5A] block py-2">Galería</a></li>
+                <li><a href="#menu" class="text-[#4A3729] hover:text-[#C27E5A] block py-2">Menú</a></li>
+                <li><a href="#contacto" class="text-[#4A3729] hover:text-[#C27E5A] block py-2">Contacto</a></li>
+                <li class="pt-2"><a href="https://wa.me/522727240139?text=Hola%2C%20me%20gustaría%20hacer%20una%20reserva%20en%20Marrón" target="_blank" class="btn-terracota text-white px-6 py-2 rounded-full inline-block">Reservar</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <img id="lightbox-img" class="lightbox-img" src="" alt="Ampliación">
+    </div>
+
+    <!-- HERO -->
+    <section id="inicio" class="relative min-h-screen flex items-center justify-center text-center bg-no-repeat" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.3)), url('https://i.postimg.cc/prGxCP3n/01-hero.jpg'); background-size: contain; background-position: center; background-color: #2C2C2C;">
+        <div class="relative z-10 px-4 py-24 max-w-4xl mx-auto">
+            <img src="https://i.postimg.cc/bNNRWqS1/LOGO.jpg" alt="Marrón" class="w-40 md:w-52 mx-auto mb-6">
+            <span class="inline-block bg-white/20 backdrop-blur-sm text-white px-4 py-1 rounded-full text-sm mb-6 tracking-wide">Restaurante · Galería · Diseño</span>
+            <h1 class="text-5xl md:text-7xl font-serif font-bold text-white mb-6 leading-tight">Un lugar para <span class="text-[#D9B48B]">habitar</span>,<br>no solo para comer</h1>
+            <p class="text-white/90 text-lg md:text-xl max-w-2xl mx-auto mb-8">Donde la buena mesa se encuentra con el diseño único. Cada detalle, cada pieza, cada sabor está pensado para quedarse.</p>
+            <div class="flex gap-4 justify-center flex-wrap">
+                <a href="#menu" class="btn-terracota px-8 py-3 rounded-full font-semibold transition shadow-lg">Ver Menú</a>
+                <a href="https://wa.me/522727240139?text=Hola%2C%20me%20gustaría%20hacer%20una%20reserva%20en%20Marrón" target="_blank" class="bg-white/20 backdrop-blur-sm border border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-[#C27E5A] transition">Reservar Mesa</a>
+            </div>
+        </div>
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce"><i class="fas fa-chevron-down text-white text-2xl"></i></div>
+    </section>
+
+    <!-- CONCEPTO -->
+    <section id="concepto" class="py-24 bg-marron-claro">
+        <div class="container mx-auto px-4 max-w-6xl">
+            <div class="text-center mb-16">
+                <span class="text-[#C27E5A] text-sm tracking-wider uppercase">Un espacio único</span>
+                <h2 class="text-4xl md:text-5xl font-serif text-[#4A3729] mt-2 mb-4">Marrón es <span class="text-[#C27E5A]">más</span> que un restaurante</h2>
+                <div class="w-20 h-0.5 bg-[#C27E5A] mx-auto mb-8"></div>
+            </div>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <p class="text-[#8B5A2B] text-lg mb-6">Marrón Cocina Galería es un original e íntimo espacio que ofrece un amplio menú que incluye comida mexicana, de asador, pastas y pizza. También cuentan con cervezas artesanales, ¡pide que te recomienden alguna!</p>
+                    <p class="text-[#8B5A2B] mb-6">Lo mejor de todo es que el mobiliario y los artículos de decoración se encuentran a la venta. Disfruta de ingredientes frescos y de recetas de tradición familiar.</p>
+                    <div class="flex flex-wrap gap-3 mt-6">
+                        <span class="bg-white px-4 py-2 rounded-full text-sm border border-[#E8DDD0]"><i class="fas fa-utensils text-[#C27E5A] mr-1"></i> Cocina Mexicana</span>
+                        <span class="bg-white px-4 py-2 rounded-full text-sm border border-[#E8DDD0]"><i class="fas fa-fire text-[#C27E5A] mr-1"></i> Asador</span>
+                        <span class="bg-white px-4 py-2 rounded-full text-sm border border-[#E8DDD0]"><i class="fas fa-pizza-slice text-[#C27E5A] mr-1"></i> Pizza Artesanal</span>
+                        <span class="bg-white px-4 py-2 rounded-full text-sm border border-[#E8DDD0]"><i class="fas fa-wine-bottle text-[#C27E5A] mr-1"></i> Cerveza Artesanal</span>
+                        <span class="bg-white px-4 py-2 rounded-full text-sm border border-[#E8DDD0]"><i class="fas fa-couch text-[#C27E5A] mr-1"></i> Mobiliario a la Venta</span>
+                    </div>
+                </div>
+                <div>
+                    <img src="https://i.postimg.cc/26rkGc94/02-concepto.jpg" class="imagen-click w-full rounded-2xl shadow-xl" onclick="openLightbox(this.src)">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXPERIENCIA -->
+    <section id="experiencia" class="py-24 bg-marron-medio">
+        <div class="container mx-auto px-4 max-w-6xl">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <span class="text-[#C27E5A] text-sm tracking-wider uppercase">El lugar</span>
+                    <h2 class="text-4xl md:text-5xl font-serif text-[#4A3729] mt-2 mb-4">Una <span class="text-[#C27E5A]">sobremesa</span> que se recuerda</h2>
+                    <div class="w-16 h-0.5 bg-[#C27E5A] mb-6"></div>
+                    <p class="text-[#8B5A2B] text-lg mb-4">En Marrón, cada rincón invita a quedarse. La luz cálida, el mobiliario único, el ambiente íntimo. No es solo una comida, es una pausa en el tiempo.</p>
+                    <p class="text-[#8B5A2B] mb-6">Un lugar donde las conversaciones fluyen, donde el café se toma sin prisa y donde cada detalle cuenta una historia.</p>
+                    <div class="flex gap-6 mt-4">
+                        <div><i class="fas fa-coffee text-2xl text-[#C27E5A] mb-2 block"></i><span class="text-sm">Café sin prisa</span></div>
+                        <div><i class="fas fa-users text-2xl text-[#C27E5A] mb-2 block"></i><span class="text-sm">Sobremesa infinita</span></div>
+                        <div><i class="fas fa-fire text-2xl text-[#C27E5A] mb-2 block"></i><span class="text-sm">Calidez en cada detalle</span></div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 gap-6">
+                    <img src="https://i.postimg.cc/SskSdT1c/04-experiencia.jpg" class="imagen-click w-full h-80 object-cover rounded-2xl shadow-xl" onclick="openLightbox(this.src)">
+                    <img src="https://i.postimg.cc/vBhQNrCn/sobremesa.jpg" class="imagen-click w-full h-80 object-cover rounded-2xl shadow-xl" onclick="openLightbox(this.src)">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COCINA -->
+    <section id="cocina" class="py-24 bg-marron-claro">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <span class="text-[#C27E5A] text-sm tracking-wider uppercase">Sabores que enamoran</span>
+                <h2 class="text-4xl md:text-5xl font-serif text-[#4A3729] mt-2 mb-4">Nuestra <span class="text-[#C27E5A]">Cocina</span></h2>
+                <div class="w-24 h-0.5 bg-[#C27E5A] mx-auto mb-8"></div>
+                <p class="text-[#8B5A2B] max-w-2xl mx-auto">Ingredientes frescos, recetas de tradición familiar y el sabor de siempre con un toque único.</p>
+            </div>
+            <div class="max-w-4xl mx-auto">
+                <img src="https://i.postimg.cc/bJpygCV0/cocina.jpg" class="imagen-click w-full rounded-2xl shadow-xl" onclick="openLightbox(this.src)">
+            </div>
+            <div class="text-center mt-8">
+                <p class="text-[#C27E5A] text-sm italic">Cerveza artesanal · Cóctel de mezcal con guayaba · Pide recomendación</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALERÍA -->
+    <section id="galeria" class="py-24 bg-marron-medio">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <span class="text-[#C27E5A] text-sm tracking-wider uppercase">Cada rincón cuenta una historia</span>
+                <h2 class="text-4xl md:text-5xl font-serif text-[#4A3729] mt-2 mb-4">Espacios <span class="text-[#C27E5A]">Marrón</span></h2>
+                <div class="w-24 h-0.5 bg-[#C27E5A] mx-auto mb-8"></div>
+                <p class="text-[#8B5A2B] max-w-2xl mx-auto">Todo lo que ves está a la venta. Llévate un pedazo de Marrón a tu hogar.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <img src="https://i.postimg.cc/HxdYzZv4/g1.jpg" class="imagen-click w-full h-80 object-cover rounded-2xl shadow-lg" onclick="openLightbox(this.src)">
+                <img src="https://i.postimg.cc/d16qx2gh/g2.jpg" class="imagen-click w-full h-80 object-cover rounded-2xl shadow-lg" onclick="openLightbox(this.src)">
+                <img src="https://i.postimg.cc/xC504vBk/g3.jpg" class="imagen-click w-full h-80 object-cover rounded-2xl shadow-lg" onclick="openLightbox(this.src)">
+            </div>
+            <p class="text-center text-[#C27E5A] text-sm mt-6"><i class="fas fa-tag mr-1"></i> Mobiliario y decoración disponibles para llevar</p>
+        </div>
+    </section>
+
+    <!-- TESTIMONIOS -->
+    <section id="testimonios" class="py-24 bg-marron-claro">
+        <div class="container mx-auto px-4 max-w-5xl">
+            <div class="text-center mb-12">
+                <span class="text-[#C27E5A] text-sm tracking-wider uppercase">Lo que dicen</span>
+                <h2 class="text-4xl md:text-5xl font-serif text-[#4A3729] mt-2 mb-4">Voces que nos <span class="text-[#C27E5A]">acompañan</span></h2>
+                <div class="w-24 h-0.5 bg-[#C27E5A] mx-auto mb-8"></div>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="testimonio-card">
+                    <i class="fas fa-quote-left text-2xl text-[#C27E5A] mb-3 block"></i>
+                    <p class="text-[#8B5A2B] italic">"Te sientes en casa desde que entras. La comida es increíble y cada detalle está pensado con amor."</p>
+                    <p class="mt-4 font-semibold text-[#4A3729]">— Ana V.</p>
+                </div>
+                <div class="testimonio-card">
+                    <i class="fas fa-quote-left text-2xl text-[#C27E5A] mb-3 block"></i>
+                    <p class="text-[#8B5A2B] italic">"Un espacio único en Orizaba. La combinación de restaurante y galería es genial. Me llevé una lámpara hermosa."</p>
+                    <p class="mt-4 font-semibold text-[#4A3729]">— Carlos M.</p>
+                </div>
+                <div class="testimonio-card">
+                    <i class="fas fa-quote-left text-2xl text-[#C27E5A] mb-3 block"></i>
+                    <p class="text-[#8B5A2B] italic">"La pizza artesanal es de otro nivel. Y el ambiente es perfecto para una sobremesa larga."</p>
+                    <p class="mt-4 font-semibold text-[#4A3729]">— Laura G.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MENÚ -->
+    <section id="menu" class="py-24 bg-marron-medio">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <span class="text-[#C27E5A] text-sm tracking-wider uppercase">Sabores</span>
+                <h2 class="text-4xl md:text-5xl font-serif text-[#4A3729] mt-2 mb-4">Nuestro <span class="text-[#C27E5A]">Menú</span></h2>
+                <div class="w-24 h-0.5 bg-[#C27E5A] mx-auto mb-8"></div>
+                <p class="text-[#8B5A2B] max-w-2xl mx-auto">Platillos llenos de sabor, tradición y creatividad</p>
+            </div>
+            
+            <div class="bg-white/60 p-4 rounded-xl mb-8 text-center max-w-2xl mx-auto border border-[#E8DDD0]">
+                <p class="text-[#C27E5A] text-sm font-semibold"><i class="fas fa-info-circle mr-2"></i> MENÚ DE MUESTRA</p>
+                <p class="text-[#8B5A2B] text-sm">Este es un menú de referencia. Al contratar la página, se integrará el menú real con todos los platillos y precios auténticos de Marrón.</p>
+            </div>
+            
+            <div class="flex justify-center gap-3 mb-12 flex-wrap">
+                <button class="menu-cat-btn active bg-[#C27E5A] text-white px-6 py-2 rounded-full transition" data-cat="mexicana">Mexicana</button>
+                <button class="menu-cat-btn bg-white text-[#4A3729] px-6 py-2 rounded-full hover:bg-[#C27E5A] hover:text-white transition" data-cat="asador">Asador</button>
+                <button class="menu-cat-btn bg-white text-[#4A3729] px-6 py-2 rounded-full hover:bg-[#C27E5A] hover:text-white transition" data-cat="pastas">Pastas</button>
+                <button class="menu-cat-btn bg-white text-[#4A3729] px-6 py-2 rounded-full hover:bg-[#C27E5A] hover:text-white transition" data-cat="pizza">Pizza</button>
+                <button class="menu-cat-btn bg-white text-[#4A3729] px-6 py-2 rounded-full hover:bg-[#C27E5A] hover:text-white transition" data-cat="ensaladas">Ensaladas</button>
+                <button class="menu-cat-btn bg-white text-[#4A3729] px-6 py-2 rounded-full hover:bg-[#C27E5A] hover:text-white transition" data-cat="bebidas">Bebidas</button>
+            </div>
+            <div id="menu-items-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto"></div>
+            <div class="text-center mt-12">
+                <a href="https://wa.me/522727240139?text=Hola%2C%20me%20gustaría%20hacer%20una%20reserva%20en%20Marrón" target="_blank" class="btn-terracota text-white px-8 py-3 rounded-full font-semibold transition shadow-lg inline-block">Reservar Mesa</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- UBICACIÓN Y CONTACTO -->
+    <section id="contacto" class="py-24 bg-marron-claro">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-2 gap-12">
+                <div>
+                    <span class="text-[#C27E5A] text-sm tracking-wider uppercase">Visítanos</span>
+                    <h2 class="text-4xl font-serif text-[#4A3729] mt-2 mb-6">Encuéntranos</h2>
+                    <div class="mb-8">
+                        <h3 class="font-bold text-lg mb-2 text-[#C27E5A]"><i class="fas fa-map-marker-alt mr-2"></i> Ubicación</h3>
+                        <p class="text-[#8B5A2B]">Ote. 4 #355, entre sur 7 y sur 9<br>Centro, 94300 Orizaba, Veracruz, México</p>
+                    </div>
+                    <div class="mb-8">
+                        <h3 class="font-bold text-lg mb-2 text-[#C27E5A]"><i class="fas fa-clock mr-2"></i> Horario</h3>
+                        <ul class="space-y-1 text-[#8B5A2B]">
+                            <li><span class="font-medium">Lunes:</span> 8:30 – 23:00</li>
+                            <li><span class="font-medium">Martes:</span> 14:00 – 23:00</li>
+                            <li><span class="font-medium">Miércoles:</span> 8:30 – 23:00</li>
+                            <li><span class="font-medium">Jueves:</span> 8:30 – 23:00</li>
+                            <li><span class="font-medium">Viernes:</span> 8:30 – 00:00</li>
+                            <li><span class="font-medium">Sábado:</span> 8:30 – 00:00</li>
+                            <li><span class="font-medium">Domingo:</span> 8:30 – 20:00</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg mb-2 text-[#C27E5A]"><i class="fas fa-phone-alt mr-2"></i> Contacto</h3>
+                        <a href="https://wa.me/522727240139?text=Hola%2C%20me%20gustaría%20hacer%20una%20reserva%20en%20Marrón" target="_blank" class="block text-[#8B5A2B] hover:text-[#C27E5A] transition"><i class="fab fa-whatsapp mr-2 text-[#C27E5A]"></i> 272 724 0139</a>
+                        <a href="tel:+522727240139" class="block text-[#8B5A2B] hover:text-[#C27E5A] transition mt-1"><i class="fas fa-phone-alt mr-2 text-[#C27E5A]"></i> 272 724 0139</a>
+                        <a href="mailto:contacto@marron.mx" class="block text-[#8B5A2B] hover:text-[#C27E5A] transition mt-1"><i class="fas fa-envelope mr-2 text-[#C27E5A]"></i> contacto@marron.mx</a>
+                    </div>
+                    <div class="flex gap-4 mt-8">
+                        <a href="https://www.facebook.com/marroncocinagaleria" target="_blank" class="bg-white hover:bg-[#C27E5A] hover:text-white p-3 rounded-full transition text-[#4A3729] border border-[#E8DDD0]"><i class="fab fa-facebook-f text-xl"></i></a>
+                        <a href="https://www.instagram.com/marroncocinagaleria" target="_blank" class="bg-white hover:bg-[#C27E5A] hover:text-white p-3 rounded-full transition text-[#4A3729] border border-[#E8DDD0]"><i class="fab fa-instagram text-xl"></i></a>
+                    </div>
+                </div>
+                <div class="h-[400px] md:h-[450px] rounded-2xl overflow-hidden shadow-xl border border-[#E8DDD0]">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3768.123456789012!2d-97.1023456!3d18.8438856!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85c502b8b8b8b8b8%3A0x123456789abcdef!2sOte.%204%20%23355%2C%20Centro%2C%2094300%20Orizaba%2C%20Ver.!5e0!3m2!1ses!2smx!4v1641234567890!5m2!1ses!2smx" width="100%" height="100%" style="border:0;" allowfullscreen loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-[#4A3729] text-white py-12">
+        <div class="container mx-auto px-4 text-center">
+            <img src="https://i.postimg.cc/bNNRWqS1/LOGO.jpg" alt="Marrón" class="logo-footer mx-auto mb-4 opacity-90">
+            <p class="text-[#E8DDD0] text-sm mb-6">Cocina · Galería · Diseño</p>
+            <div class="flex justify-center gap-6 mb-6 flex-wrap">
+                <a href="#inicio" class="text-[#E8DDD0] hover:text-[#D9B48B] text-sm">Inicio</a>
+                <a href="#concepto" class="text-[#E8DDD0] hover:text-[#D9B48B] text-sm">Concepto</a>
+                <a href="#experiencia" class="text-[#E8DDD0] hover:text-[#D9B48B] text-sm">Experiencia</a>
+                <a href="#cocina" class="text-[#E8DDD0] hover:text-[#D9B48B] text-sm">Cocina</a>
+                <a href="#galeria" class="text-[#E8DDD0] hover:text-[#D9B48B] text-sm">Galería</a>
+                <a href="#menu" class="text-[#E8DDD0] hover:text-[#D9B48B] text-sm">Menú</a>
+                <a href="#contacto" class="text-[#E8DDD0] hover:text-[#D9B48B] text-sm">Contacto</a>
+            </div>
+            <p class="text-[#A89F91] text-xs">&copy; 2025 Marrón Cocina Galería | Ote. 4 #355, Centro, Orizaba | Tel: 272 724 0139</p>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/522727240139?text=Hola%2C%20me%20gustaría%20hacer%20una%20reserva%20en%20Marrón" class="fixed bottom-6 right-6 bg-green-600 text-white p-4 rounded-full shadow-lg hover:bg-green-700 transition z-50" target="_blank">
+        <i class="fab fa-whatsapp text-2xl"></i>
+    </a>
+
+    <script>
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        
+        function openLightbox(src) {
+            lightboxImg.src = src;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                closeLightbox();
+            }
+        });
+
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        if(menuToggle) menuToggle.addEventListener('click',()=>mobileMenu.classList.toggle('hidden'));
+        document.querySelectorAll('#mobileMenu a').forEach(l=>l.addEventListener('click',()=>mobileMenu.classList.add('hidden')));
+
+        const menuData = {
+            mexicana: [
+                { name:"Enchiladas Suizas", description:"Tortillas de maíz rellenas de pollo, bañadas en salsa verde, gratinadas con queso", price:"$135" },
+                { name:"Chiles en Nogada", description:"Chile poblano relleno de picadillo, cubierto con nogada, granada y perejil", price:"$185" },
+                { name:"Mole Poblano", description:"Pechuga de pollo bañada en mole tradicional, arroz y frijoles", price:"$165" }
+            ],
+            asador: [
+                { name:"Arrachera", description:"Corte de res marinado en especias, servida con guacamole y frijoles charros", price:"$220" },
+                { name:"Rib Eye", description:"Jugoso corte a la parrilla, acompañado de papa al horno y vegetales asados", price:"$280" },
+                { name:"Salmón Mediterráneo", description:"Salmón a la parrilla con hierbas, salsa de cítricos, puré de papa", price:"$210" }
+            ],
+            pastas: [
+                { name:"Fettuccine Alfredo", description:"Pasta fresca con salsa cremosa de parmesano", price:"$145" },
+                { name:"Pasta al Pesto", description:"Espagueti con albahaca, piñones, queso parmesano y aceite de oliva", price:"$135" },
+                { name:"Lasagna Tradicional", description:"Capas de pasta, carne molida, queso y salsa bechamel", price:"$155" }
+            ],
+            pizza: [
+                { name:"Pizza Margarita", description:"Salsa de tomate, mozzarella, albahaca fresca", price:"$145" },
+                { name:"Pizza Pepperoni", description:"Salsa de tomate, mozzarella, pepperoni", price:"$165" },
+                { name:"Pizza Cuatro Quesos", description:"Mozzarella, gorgonzola, parmesano, provolone", price:"$175" }
+            ],
+            ensaladas: [
+                { name:"Ensalada César", description:"Lechuga romana, pollo, queso parmesano, crutones, aderezo César", price:"$95" },
+                { name:"Ensalada Caprese", description:"Tomate, mozzarella fresca, albahaca, aceite de oliva", price:"$85" }
+            ],
+            bebidas: [
+                { name:"Cóctel de Mezcal con Guayaba", description:"Mezcal artesanal, guayaba fresca, jugo de limón, jarabe de agave", price:"$95" },
+                { name:"Cerveza Artesanal", description:"Selección de cervezas artesanales. Pide recomendación", price:"$65" },
+                { name:"Margarita Clásica", description:"Tequila, limón, triple sec", price:"$85" }
+            ]
+        };
+
+        function renderMenu(category){
+            const container=document.getElementById('menu-items-container');
+            const items=menuData[category];
+            if(!container||!items)return;
+            container.innerHTML=items.map(i=>`<div class="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition border border-[#E8DDD0]"><h3 class="text-xl font-bold text-[#C27E5A] mb-2">${i.name}</h3><p class="text-[#8B5A2B] text-sm mb-3">${i.description||"—"}</p><p class="text-[#4A3729] font-bold text-xl">${i.price}</p></div>`).join('');
+        }
+        
+        document.querySelectorAll('.menu-cat-btn').forEach(b=>{
+            b.addEventListener('click',()=>{
+                document.querySelectorAll('.menu-cat-btn').forEach(btn=>{
+                    btn.classList.remove('active','bg-[#C27E5A]','text-white');
+                    btn.classList.add('bg-white','text-[#4A3729]');
+                });
+                b.classList.add('active','bg-[#C27E5A]','text-white');
+                b.classList.remove('bg-white','text-[#4A3729]');
+                renderMenu(b.dataset.cat);
+            });
+        });
+        
+        const container = document.getElementById('menu-items-container');
+        if (container) container.innerHTML = '<div class="col-span-3 text-center py-12 text-[#8B5A2B]"><i class="fas fa-utensils text-5xl mb-4 text-[#C27E5A]"></i><p class="text-lg font-medium">🍽️ ¿Qué te gustaría probar hoy?</p><p class="text-sm mt-2">Elige una categoría y descubre nuestros sabores</p></div>';
+
+        document.getElementById('reservaForm')?.addEventListener('submit',e=>{e.preventDefault();alert('¡Gracias por tu reserva! En breve nos comunicaremos para confirmar. ¡Te esperamos en Marrón!');e.target.reset();});
+    </script>
+</body>
+</html>
